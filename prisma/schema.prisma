@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  //output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rol {
+  ADMIN
+  AUXILIAR
+}
+
+enum Estado {
+  ACTIVO
+  INACTIVO
+}
+
+
+model Usuario {
+  id        Int       @id @default(autoincrement())
+  nombre    String
+  correo    String    @unique
+  contrasena String
+  rol       Rol
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Auditoría inversa
+  comerciantesActualizados Comerciante[] @relation("ComercianteUpdatedBy")
+  establecimientosActualizados Establecimiento[] @relation("EstablecimientoUpdatedBy")
+}
+
+model Comerciante {
+  id               Int       @id @default(autoincrement())
+  nombre           String
+  municipio        String
+  telefono         String?   // Opcional
+  correo           String?   // Opcional
+  fechaRegistro    DateTime  @default(now())
+  estado           Estado    @default(ACTIVO)
+  updatedAt        DateTime  @updatedAt
+
+  // Auditoría
+  actualizadoPorId Int
+  actualizadoPor   Usuario   @relation("ComercianteUpdatedBy", fields: [actualizadoPorId], references: [id])
+
+  establecimientos Establecimiento[]
+}
+
+model Establecimiento {
+  id               Int       @id @default(autoincrement())
+  nombre           String
+  ingresos         Decimal   @db.Decimal(10, 2)
+  numeroEmpleados  Int
+
+  comercianteId    Int
+  comerciante      Comerciante @relation(fields: [comercianteId], references: [id])
+
+  updatedAt        DateTime  @updatedAt
+
+  // Auditoría
+  actualizadoPorId Int
+  actualizadoPor   Usuario   @relation("EstablecimientoUpdatedBy", fields: [actualizadoPorId], references: [id])
+}
