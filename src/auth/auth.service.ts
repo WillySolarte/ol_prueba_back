@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TLoginValidate, TUserValidateData } from 'src/common/types';
-import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -28,7 +27,7 @@ export class AuthService {
         return result
       }
 
-      const passwordValid = await bcrypt.compare(contrasena, userExist.contrasena)
+      const passwordValid = contrasena === userExist.contrasena ? true: false
       if (!passwordValid) {
         const result: TLoginValidate = {
           msg: 'Contraseña incorrecta',

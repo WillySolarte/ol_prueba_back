@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  //output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,24 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Rol {
-  ADMIN
-  AUXILIAR
-}
-
-
-
 model Usuario {
-  id        Int       @id @default(autoincrement())
-  nombre    String
-  correo    String    @unique
-  contrasena String
-  rol       Rol
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
-  // Auditoría inversa
-  comerciantesActualizados Comerciante[] @relation("ComercianteUpdatedBy")
+  id                           Int               @id @default(autoincrement())
+  nombre                       String
+  correo                       String            @unique
+  contrasena                   String
+  rol                          Rol
+  createdAt                    DateTime?         @default(now()) @db.Timestamp(6)
+  updatedAt                    DateTime?         @default(now()) @updatedAt @db.Timestamp(6)
+  comerciantesActualizados     Comerciante[]     @relation("ComercianteUpdatedBy")
   establecimientosActualizados Establecimiento[] @relation("EstablecimientoUpdatedBy")
 }
 
@@ -42,35 +26,33 @@ model Municipio {
 }
 
 model Comerciante {
-  id               Int       @id @default(autoincrement())
+  id               Int               @id @default(autoincrement())
   nombre           String
-  telefono         String?   
-  correo           String?   
-  fechaRegistro    DateTime  @default(now())
-  estado           Boolean    @default(true)
-  updatedAt        DateTime  @updatedAt
-
+  telefono         String?
+  correo           String?
+  fechaRegistro    DateTime?         @default(now()) @db.Timestamp(6)
+  estado           Boolean?          @default(true)
+  updatedAt        DateTime?         @default(now()) @updatedAt @db.Timestamp(6)
   municipioId      Int
-  municipio        Municipio  @relation(fields: [municipioId], references: [id])
-
   actualizadoPorId Int
-  actualizadoPor   Usuario     @relation("ComercianteUpdatedBy", fields: [actualizadoPorId], references: [id])
-
+  municipio        Municipio         @relation(fields: [municipioId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_municipio")
+  actualizadoPor   Usuario           @relation("ComercianteUpdatedBy", fields: [actualizadoPorId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario_actualiza_comerciante")
   establecimientos Establecimiento[]
 }
 
 model Establecimiento {
-  id               Int       @id @default(autoincrement())
+  id               Int         @id @default(autoincrement())
   nombre           String
-  ingresos         Decimal   @db.Decimal(10, 2)
+  ingresos         Decimal     @db.Decimal(10, 2)
   numeroEmpleados  Int
-
   comercianteId    Int
-  comerciante      Comerciante @relation(fields: [comercianteId], references: [id])
-
-  updatedAt        DateTime  @updatedAt
-
-  // Auditoría
+  updatedAt        DateTime?   @default(now()) @updatedAt @db.Timestamp(6)
   actualizadoPorId Int
-  actualizadoPor   Usuario   @relation("EstablecimientoUpdatedBy", fields: [actualizadoPorId], references: [id])
+  comerciante      Comerciante @relation(fields: [comercianteId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_comerciante")
+  actualizadoPor   Usuario     @relation("EstablecimientoUpdatedBy", fields: [actualizadoPorId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario_actualiza_establecimiento")
+}
+
+enum Rol {
+  ADMIN
+  AUXILIAR
 }
