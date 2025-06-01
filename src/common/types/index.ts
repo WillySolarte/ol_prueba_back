@@ -11,3 +11,6 @@ export type TLoginValidate = {
     error: boolean;
     user: TUserValidateData | null;
 }
+
+
+

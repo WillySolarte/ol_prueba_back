@@ -19,10 +19,6 @@ enum Rol {
   AUXILIAR
 }
 
-enum Estado {
-  ACTIVO
-  INACTIVO
-}
 
 
 model Usuario {
@@ -39,19 +35,26 @@ model Usuario {
   establecimientosActualizados Establecimiento[] @relation("EstablecimientoUpdatedBy")
 }
 
+model Municipio {
+  id           Int           @id @default(autoincrement())
+  nombre       String        @unique
+  comerciantes Comerciante[]
+}
+
 model Comerciante {
   id               Int       @id @default(autoincrement())
   nombre           String
-  municipio        String
-  telefono         String?   // Opcional
-  correo           String?   // Opcional
+  telefono         String?   
+  correo           String?   
   fechaRegistro    DateTime  @default(now())
-  estado           Estado    @default(ACTIVO)
+  estado           Boolean    @default(true)
   updatedAt        DateTime  @updatedAt
 
-  // Auditoría
+  municipioId      Int
+  municipio        Municipio  @relation(fields: [municipioId], references: [id])
+
   actualizadoPorId Int
-  actualizadoPor   Usuario   @relation("ComercianteUpdatedBy", fields: [actualizadoPorId], references: [id])
+  actualizadoPor   Usuario     @relation("ComercianteUpdatedBy", fields: [actualizadoPorId], references: [id])
 
   establecimientos Establecimiento[]
 }
