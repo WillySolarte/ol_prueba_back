@@ -9,6 +9,7 @@ COPY package*.json ./
 
 # Instalar dependencias de producción
 RUN npm install --omit=dev
+RUN npm install -g @nestjs/cli
 
 # Copiar el resto del código fuente
 COPY . .
