@@ -14,6 +14,8 @@ RUN npm install -g @nestjs/cli
 # Copiar el resto del código fuente
 COPY . .
 
+# Generar los tipos de Prisma
+RUN npx prisma generate
 # Compilar el proyecto
 RUN npm run build
 
