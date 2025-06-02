@@ -65,7 +65,7 @@ export class BusinessmanService {
           establecimientos: true,
         },
       });
-      const dataToTable  = comerciantes.map((comerciante) => ({
+      const dataToTable = comerciantes.map((comerciante) => ({
         id: comerciante.id,
         nombre: comerciante.nombre,
         telefono: comerciante.telefono,
@@ -176,6 +176,38 @@ export class BusinessmanService {
       }
       throw new InternalServerErrorException('Error en la conexión');
 
+    }
+  }
+
+  async changeState(id: number) {
+
+    try {
+      const businessmanExist = await this.prismaService.comerciante.findUnique({ where: { id } });
+      if (!businessmanExist) {
+        throw new NotFoundException('Comerciante no encontrado');
+      }
+
+      const newState = !businessmanExist.estado;
+
+      await this.prismaService.comerciante.update({
+        where: { id },
+        data: {
+          estado: newState,
+        },
+      });
+
+      const response: IDataResponse<boolean> = {
+        statusCode: 200,
+        message: 'Estado del comerciante actualizado correctamente',
+        data: newState,
+      };
+
+      return response;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error en la conexión');
     }
   }
 }

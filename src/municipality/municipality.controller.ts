@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { MunicipalityService } from './municipality.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -14,10 +14,7 @@ export class MunicipalityController {
     return this.municipalityService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.municipalityService.findOne(+id);
-  }
+  
 
   
 }

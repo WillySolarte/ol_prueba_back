@@ -36,6 +36,12 @@ export class BusinessmanController {
     return this.businessmanService.update(id, updateBusinessmanDto, req.user);
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Patch('change-state/:id')
+  changeState(@Param('id', ParseIntPipe) id: number) {
+    return this.businessmanService.changeState(id);
+  }
+
   @UseGuards(AuthGuard('jwt'), AdminModeratorGuard)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {

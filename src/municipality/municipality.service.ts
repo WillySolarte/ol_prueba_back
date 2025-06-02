@@ -34,9 +34,6 @@ export class MunicipalityService {
 
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} municipality`;
-  }
-
+  
 
 }
