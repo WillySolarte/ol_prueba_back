@@ -9,7 +9,7 @@ export class CreateBusinessmanDto {
     telefono  :string  
 
     @IsEmail()
-    correo :string
+    correo? :string
 
     @IsDateString()
     fechaRegistro : string

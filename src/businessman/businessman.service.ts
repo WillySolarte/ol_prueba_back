@@ -5,7 +5,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { IDataResponse } from 'src/common/interfaces/response.interfaces';
 import { Comerciante } from '@prisma/client';
 import { TUserValidateData } from 'src/common/types';
-import { PaginationBusinessmanDto } from './dto/pagination-businessman.dto';
 
 @Injectable()
 export class BusinessmanService {
@@ -53,13 +52,16 @@ export class BusinessmanService {
 
   }
 
-  async findAll(paginationBusinessmanDto: PaginationBusinessmanDto) {
+  async findAll(take: number, page: number) {
 
-    const { limit = 5 } = paginationBusinessmanDto;
+
+    const totalCount = await this.prismaService.comerciante.count();
+    const totalPages = Math.ceil(totalCount / take);
 
     try {
       const comerciantes = await this.prismaService.comerciante.findMany({
-        take: limit,
+        take,
+        skip: (page * take) - take,
         orderBy: { id: 'asc' },
         include: {
           establecimientos: true,
@@ -75,10 +77,18 @@ export class BusinessmanService {
         estado: comerciante.estado,
       }));
 
-      const dataResponse: IDataResponse<typeof dataToTable> = {
+      type BusinessmanListResponse = {
+        comerciantes: typeof dataToTable;
+        totalPages: number;
+      };
+
+      const dataResponse: IDataResponse<BusinessmanListResponse> = {
         statusCode: 201,
-        message: 'Comerciante creado correctamente',
-        data: dataToTable,
+        message: 'Comerciantes retornados correctamente',
+        data: {
+          comerciantes: dataToTable,
+          totalPages
+        },
       }
 
       return dataResponse
@@ -116,10 +126,9 @@ export class BusinessmanService {
 
   async update(id: number, updateBusinessmanDto: UpdateBusinessmanDto, user: TUserValidateData) {
     const { nombre, correo, estado, telefono, municipio, fechaRegistro } = updateBusinessmanDto;
-
     try {
       const businessmanExist = await this.prismaService.comerciante.findUnique({ where: { id } });
-
+      
       if (!businessmanExist) {
         throw new NotFoundException('Comerciante no encontrado');
       }
@@ -152,7 +161,6 @@ export class BusinessmanService {
       throw new InternalServerErrorException('Error en la conexión');
 
     }
-
   }
 
   async remove(id: number) {
@@ -161,6 +169,9 @@ export class BusinessmanService {
       if (!businessmanExist) {
         throw new NotFoundException('Comerciante no encontrado');
       }
+
+      await this.prismaService.establecimiento.deleteMany({  where: { comercianteId: id },});
+
       await this.prismaService.comerciante.delete({ where: { id } });
 
       const dataResponse: IDataResponse<null> = {

@@ -1,10 +1,15 @@
 // src/businessman/dto/pagination.dto.ts
-import { IsOptional, IsPositive } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsNumber, IsPositive } from 'class-validator';
 
 export class PaginationBusinessmanDto {
-  @IsOptional()
+  
   @IsPositive()
-  @Type(() => Number)
-  limit?: number = 5;
+  @IsNumber()
+  take: number;
+
+  @IsPositive()
+  @IsNumber()
+  page: number
+
+
 }

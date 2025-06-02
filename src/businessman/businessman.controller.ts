@@ -1,11 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards, Req, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
 import { BusinessmanService } from './businessman.service';
 import { CreateBusinessmanDto } from './dto/create-businessman.dto';
 import { UpdateBusinessmanDto } from './dto/update-businessman.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { TUserValidateData } from 'src/common/types';
 import { AdminModeratorGuard } from 'src/auth/guards/admin.guard';
-import { PaginationBusinessmanDto } from './dto/pagination-businessman.dto';
 
 @Controller('businessman')
 export class BusinessmanController {
@@ -18,9 +17,9 @@ export class BusinessmanController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('all')
-  findAll(@Query() paginationBusinessmanDto: PaginationBusinessmanDto) {
-    return this.businessmanService.findAll(paginationBusinessmanDto);
+  @Get('all/:take/:page')
+  findAll(@Param('take', ParseIntPipe) take: number, @Param('page', ParseIntPipe) page: number) {
+    return this.businessmanService.findAll(take, page);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -32,7 +31,6 @@ export class BusinessmanController {
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateBusinessmanDto: UpdateBusinessmanDto, @Req() req: Request & { user: TUserValidateData }) {
-    
     return this.businessmanService.update(id, updateBusinessmanDto, req.user);
   }
 
