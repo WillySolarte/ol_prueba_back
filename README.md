@@ -24,7 +24,15 @@
 
 7. Si quiere usar la consola para corre el contenedor Docker ingrese el comando:
  ```docker run -p 3000:3000 --env-file .env nombre_de_tu_imagen``` 
-# NOTA
+# NOTAS
+
+- Para el api login se crearon dos usuarios: ADMIN y AUX y sus credenciales son
+
+  ADMINISTRADOR
+  correo: maitecalatayud@bonet.com  contraseña: Admin12345
+
+  AUXILIAR
+  correo: pintocleto@nunez-lamas.com contraseña: Aux12345
 
 - En este mismo proyecto está la importación de la colección de endpoints usados en Postman
 
