@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "378b0f93-31bf-4a22-beb1-077f56dfffc6",
+		"name": "OLComercio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23714586"
+	},
+	"item": [
+		{
+			"name": "login-user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"correo\": \"maitecalatayud@bonet.com\",\r\n    \r\n    \"contrasena\": \"Admin12345\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-municipalities",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODg5MDY1OSwiZXhwIjoxNzQ4ODk0MjU5fQ.mCLmbqw5hLD9IyvsufYhVW6KfUN9Mo66udwF8Lr3leA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"willy\",\r\n    \r\n    \"correo\": \"willy@gmail.com\",\r\n    \r\n    \"contrasena\": \"12345\",\r\n\r\n    \"rol\": \"ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/municipality",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"municipality"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-businessman-by-id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODg4Njk0MywiZXhwIjoxNzQ4ODkwNTQzfQ.UCUasQtWJWpA_t9ZdY5ClywybwOS4Ji5wOpXiyZ1EoQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"willy\",\r\n    \r\n    \"correo\": \"willy@gmail.com\",\r\n    \r\n    \"contrasena\": \"12345\",\r\n\r\n    \"rol\": \"ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/businessman/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"businessman",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-businessman",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODg5NzcwOSwiZXhwIjoxNzQ4OTAxMzA5fQ.ERZ6oTHxpchjRE_Q_1B5YvIiA9PC5S-DWoPgysOnaHM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Nueva Comercial\",\r\n  \"correo\": \"comercial.estrada@example.com\",\r\n  \"estado\": false,\r\n  \"telefono\": \"3184567890\",\r\n  \"municipio\": 3,\r\n  \"fechaRegistro\": \"2025-03-31T00:00:00.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/businessman",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"businessman"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-businessman",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODg5MDY1OSwiZXhwIjoxNzQ4ODk0MjU5fQ.mCLmbqw5hLD9IyvsufYhVW6KfUN9Mo66udwF8Lr3leA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Carlos Edit\",\r\n  \"correo\": \"carlosedit.herrera@example.com\",\r\n  \"estado\": true,\r\n  \"telefono\": \"3104567890\",\r\n  \"municipio\": 2,\r\n  \"fechaRegistro\": \"2024-04-14T00:00:00.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/businessman/19",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"businessman",
+						"19"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pagination-businessman",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODg3MTE4NiwiZXhwIjoxNzQ4ODc0Nzg2fQ.stGsOuhW7qAGWVVOFW28sk7Jg3b5JcUzyqG0kgDU4-Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"take\": 2,\r\n  \"page\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/businessman/all/3/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"businessman",
+						"all",
+						"3",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-businessman",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODg4MjU0NywiZXhwIjoxNzQ4ODg2MTQ3fQ.oeTE9G41cj8Ds6Od2CnlNSkraXp0igQwWRAF5ixxUtE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Carlos Edit\",\r\n  \"correo\": \"carlosedit.herrera@example.com\",\r\n  \"estado\": true,\r\n  \"telefono\": \"3104567890\",\r\n  \"municipio\": 4,\r\n  \"fechaRegistro\": \"2024-04-14T00:00:00.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/businessman/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"businessman",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-user-active",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODgyNDA1OSwiZXhwIjoxNzQ4ODI3NjU5fQ._fJoxhpWiNMGS5CBWwRt4bJZDEqFLv7J_ap_BF05Ods",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"willy\",\r\n    \r\n    \"correo\": \"willy@gmail.com\",\r\n    \r\n    \"contrasena\": \"12345\",\r\n\r\n    \"rol\": \"ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user/user/active",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"user",
+						"active"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change-state-businessman",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODg3OTM1MywiZXhwIjoxNzQ4ODgyOTUzfQ.n8OdVI24T52TPZVjVi99q22XKMCz7jjNel5aUVyGYUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Carlos Edit\",\r\n  \"correo\": \"carlosedit.herrera@example.com\",\r\n  \"estado\": true,\r\n  \"telefono\": \"3104567890\",\r\n  \"municipio\": 2,\r\n  \"fechaRegistro\": \"2024-04-14T00:00:00.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/businessman/change-state/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"businessman",
+						"change-state",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-csv-report",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWxiYW5vIExsb3BpcyBIaWVycm8iLCJyb2wiOiJBRE1JTiIsImlhdCI6MTc0ODg4Njk0MywiZXhwIjoxNzQ4ODkwNTQzfQ.UCUasQtWJWpA_t9ZdY5ClywybwOS4Ji5wOpXiyZ1EoQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"willy\",\r\n    \r\n    \"correo\": \"willy@gmail.com\",\r\n    \r\n    \"contrasena\": \"12345\",\r\n\r\n    \"rol\": \"ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/report/export",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"report",
+						"export"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

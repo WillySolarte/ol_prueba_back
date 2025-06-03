@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { MunicipalityModule } from './municipality/municipality.module';
 import { BusinessmanModule } from './businessman/businessman.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { BusinessmanModule } from './businessman/businessman.module';
     UserModule,
     AuthModule,
     MunicipalityModule,
-    BusinessmanModule
+    BusinessmanModule,
+    ReportModule
   ],
   controllers: [],
   providers: [PrismaService],

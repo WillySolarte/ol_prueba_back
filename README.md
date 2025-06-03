@@ -18,8 +18,13 @@
 # Si usas Docker desktop 
 
 7. Una vez creada la imagen corre el contenedor desde docker desktop y asegurate de proporcionar el puerto 3000
+- Utiliza la cadena de conexión para docker establecida en el .env - .env.template para la base de datos
 
 # Si usas la consola
 
 7. Si quiere usar la consola para corre el contenedor Docker ingrese el comando:
  ```docker run -p 3000:3000 --env-file .env nombre_de_tu_imagen``` 
+# NOTA
+
+- En este mismo proyecto está la importación de la colección de endpoints usados en Postman
+
